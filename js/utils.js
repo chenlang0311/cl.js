@@ -53,3 +53,7 @@ const throttle = (fn,gapTime = 100) => {
         }
     }
 }
+module.exports = {
+  throttle: throttle,
+  debounce: debounce
+}
