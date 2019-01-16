@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/**倒序*/
+			var reverse = function(x) {
+				console.log(x)
+				console.log(1534236469 == Math.pow(2, 31) - 1, Math.pow(2, 31) - 1)
+				if (x > Math.pow(2, 31) - 1 || x < Math.pow(-2, 31)) {
+					return 0;
+				}
+				let oX = Math.abs(x).toString();
+				console.log(x, oX)
+				let a = '';
+				let arr = [];
+				console.log(typeof(oX))
+				for (let z of oX) {
+					arr.unshift(z)
+				}
+				for (let o of arr) {
+					a = a + o
+				}
+				if (a > Math.pow(2, 31) - 1 || a < Math.pow(-2, 31)) {
+					return 0;
+				}
+				console.log(a)
+				if (x > 0) {
+					return a
+				} else {
+					return -a
+				}
+
+			};
+			/**回文*/
+			var isPalindrome = function(x) {
+				if (x < 0) {
+					return false;
+				}
+				let oX = Math.abs(x).toString();
+				console.log(x, oX)
+				let a = '';
+				let arr = [];
+				for (let z of oX) {
+					arr.unshift(z)
+				}
+				for (let o of arr) {
+					a = a + o
+				}
+				if (a == x) {
+					return true;
+				}
+			};
+
+			/***阿拉伯转整数**/
+			var romanToInt = function(s) {
+				// let I =1,IV=4,IX=9,XL=40,XC=90,CD=400, CM=900;
+
+				let t = 0;
+				let oS = s.replace("IV", "Q").replace("IX", "W").replace("XL", "E").replace("XC", "R").replace("CD", "T").replace(
+					"CM", "Y");
+				console.log(oS)
+				for (let i of oS) {
+					switch (i) {
+						case "I":
+							t = t + 1;
+							break;
+						case "Q":
+							t = t + 4;
+							break;
+						case "V":
+							t = t + 5;
+							break;
+						case "W":
+							t = t + 9;
+							break;
+						case "X":
+							t = t + 10;
+							break;
+						case "E":
+							t = t + 40;
+							break;
+						case "L":
+							t = t + 50;
+							break;
+						case "R":
+							t = t + 90;
+							break;
+						case "C":
+							t = t + 100;
+							break;
+						case "T":
+							t = t + 400;
+							break;
+						case "D":
+							t = t + 500;
+							break;
+						case "Y":
+							t = t + 900;
+							break;
+						case "M":
+							t = t + 1000;
+							break;
+						default:
+							console.log("error")
+					}
+
+				}
+				return t
+				console.log("ttttt", t)
+			};
+			var longestCommonPrefix1 = function(strs) {
+				let arr = []
+				let result = ""
+				for (let i = 0; i < strs.length; i++) {
+					arr.push(strs[i].length)
+				}
+				arr.sort((a, b) => a - b)
+				for (let j = 0; j < arr[0]; j++) {
+					let s = strs[0][j]
+					if (strs.every(val => val[j] == s)) {
+						result += s
+					} else {
+						break
+					}
+				}
+				console.log("1", result)
+				return result
+			};
+			var longestCommonPrefix = function(strs) {
+				let allLen = strs.length;
+				if (allLen == 0) return "";
+				let sLen = strs[0].length;
+				let result = "";
+				for (let s of strs) {
+					sLen < s.length ? sLen : sLen = s.length
+				}
+				for (let i = 0; i < sLen; i++) {
+					let f = strs[0][i]
+					if (strs.every(val => val[i] == f)) {
+						result = result + f
+					} else {
+						break
+					}
+				}
+				return result;
+			}
+			var isDouble = function(s) {
+				if (s == "") return true;
+				if (s.length % 2 == 1) return false;
+				let a = 0,
+					b = 0,
+					c = 0;
+				for (let n of s) {
+					switch (n) {
+						case "(":
+							a = a + 1;
+							break;
+						case ")":
+							a = a - 1;
+							break;
+						case "{":
+							b = b + 1;
+							break;
+						case "}":
+							b = b - 1;
+							break;
+						case "[":
+							c = c + 1;
+							break;
+						case "]":
+							c = c - 1;
+							break;
+					}
+				}
+
+				if (a == 0 && b == 0 && c == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			};
+			var isValid = function(s) {
+				if (s == "") return true;
+				let len = s.length;
+				if (len % 2 == 1) return false;
+				let mid = len / 2;
+				console.log(s);
+				let t = s.replace(/\(/g, "1").replace(/\)/g, "2").replace(/\[/g,"3").replace(/\]/g, "6").replace(/\{/g, "4").replace(
+					/\}/g, "8");
+				console.log(t)
+				let a= t.split("")
+				let aLen = a.length;
+				console.log("a",a)
+				let map = {};
+				let aMap =[];
+				let aMapLen =0;
+				for(let i = 0; i < aLen; i++){
+					let ai = a[i];
+					if(ai=="1"||ai=="3"||ai=="4"){
+						aMapLen=aMap.push(ai)
+					}
+					console.log("f",aMap);
+					console.log("ai",ai,aMapLen)
+					console.log("al",aMap[aMapLen-1])
+					if((ai=="2"&&aMap[aMapLen-1]=="1")||(ai=="6"&&aMap[aMapLen-1]=="3")||ai=="8"&&aMap[aMapLen-1]=="4"){
+						aMap.pop(a[i-1]);
+						aMapLen=aMap.length;
+						console.log("pop",aMap,aMapLen)
+					}else if(ai=="2"||ai=="6"||ai=="8"){
+						return false
+					}
+// 					if(!map[ai]){
+// 						map[ai] = 1;
+// 					}else{
+// 						map[ai]++;
+// 					}
+				}
+				if(aMap.length==0){
+					return true
+				}else{
+					return false
+				}
+				console.log("aMap",aMap);
+// 				if()
+// 				// 				let a = '';
+// 				// 				let arr = [];
+// 				// 				for (let z of t) {
+// 				// 					arr.unshift(z)
+// 				// 				}
+// 				// 				for (let o of arr) {
+// 				// 					a = a + o
+// 				// 				}
+// 				// 				if (a == t) {
+// 				// 					return true;
+// 				// 				}else{
+// 				// 					return false;
+// 				// 				}
+// 				let o = {};
+// 				for (let i = 0; i < len; i++) {
+// 					let j = len - i - 1;
+// 					let l = i + 1;
+// 					console.log(t[i], t[j])
+// 					if (t[i] == t[j]) {
+// 						o["t"] = true;
+// 					} else if (t[i] == t[i+1]) {
+// 						i=i+1
+// 						o["f"] = true;
+// 					}else {
+// 						i=i+1
+// 						o["f"] = false;
+// 					}
+// 
+// 				}
+// 				console.log(o)
+// 				if(Object.keys(o).length==1 ||(o.t==o.f==true)){
+// 					return true;
+// 				}else{
+// 					return false;
+// 				}
+				
+
+			};
+			console.log(isValid("((){)}{})"))
+		</script>
+	</body>
+</html>
